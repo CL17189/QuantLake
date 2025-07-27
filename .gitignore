@@ -1,0 +1,21 @@
+# 忽略 Python 编译缓存
+__pycache__/
+*.py[cod]
+
+# 忽略本地配置和环境
+.env
+.env.*
+
+# 忽略图片文件夹
+pic/
+
+# 忽略 spark 的临时输出（可选）
+spark-warehouse/
+.metastore_db/
+
+# 忽略日志、数据、临时文件等
+*.log
+*.sqlite
+*.db
+data/
+outputs/

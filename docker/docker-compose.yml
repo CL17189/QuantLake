@@ -1,0 +1,44 @@
+# docker/docker-compose.yml
+
+version: "3.9"
+services:
+
+  orion:
+    image: prefecthq/prefect:2.14-python3.10
+    container_name: prefect_orion
+    ports:
+      - "4200:4200"
+    command: prefect orion start
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"     # S3 接口
+      - "9001:9001"     # 控制台
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+
+  etl:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: de_etl
+    working_dir: /app
+    volumes:
+      - ../:/app
+    depends_on:
+      - minio
+    environment:
+      - AWS_ACCESS_KEY_ID=minio
+      - AWS_SECRET_ACCESS_KEY=minio123
+      - MINIO_ENDPOINT=http://minio:9000
+      - PREFECT_API_URL=http://orion:4200/api
+    command: python workflows/prefect_pipeline.py
+
+volumes:
+  minio_data:
