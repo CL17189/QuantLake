@@ -1,6 +1,6 @@
 # ingestion/config.py
 
-API_KEY = "d20ak5pr01qmbi8rtargd20ak5pr01qmbi8rtas0"  
+API_KEY = ""  
 
 # interested stocks
 SYMBOLS = ["AAPL", "TSLA", "GOOGL", "AMZN", "MSFT"]
