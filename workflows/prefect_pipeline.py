@@ -1,19 +1,14 @@
-# workflows/prefect_pipeline.py
-
 from prefect import flow, task
-from prefect.deployments import DeploymentSpec
-from prefect.orion.schemas.schedules import IntervalSchedule
 from prefect_email import EmailServerCredentials, email_send_message
-from datetime import timedelta
 import subprocess
 
 @task
 def run_data_ingestion():
-    subprocess.run(["python", "ingestion/fetch_stock_data.py"], check=True)
+    subprocess.run(["python3", "../ingestion/fetch_stock_data.py"], check=True)
 
 @task
 def run_spark_etl():
-    subprocess.run(["python", "etl/spark_job.py"], check=True)
+    subprocess.run(["python3", "../etl/spark_job.py"], check=True)
 
 @flow(name="Finance Data Pipeline")
 def finance_pipeline():
@@ -21,7 +16,6 @@ def finance_pipeline():
         fetch = run_data_ingestion()
         etl = run_spark_etl(wait_for=[fetch])
     except Exception as e:
-        # ⚠️ 发送失败通知
         creds = EmailServerCredentials.load("email-alert")
         email_send_message(
             email_server_credentials=creds,
@@ -30,10 +24,9 @@ def finance_pipeline():
             email_to="your_email@example.com"
         )
         raise
-# ✅ 每24小时运行一次
-DeploymentSpec(
-    flow=finance_pipeline,
-    name="daily-finance-pipeline",
-    schedule=IntervalSchedule(interval=timedelta(days=1)),
-    tags=["daily"]
-)
+
+if __name__ == "__main__":
+    finance_pipeline()
+
+
+

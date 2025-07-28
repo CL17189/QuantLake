@@ -14,6 +14,21 @@ def write_to_delta(df: DataFrame, output_path="data/lake/stocks_delta"):
         .save(output_path)
     print("✅ Delta write completed.")
 
+def write_table(df, name, part_cols, zorder_cols=None):
+    path = f"data/lake/{name}"
+    # 1. repartition 避免小文件
+    df = df.repartition(*part_cols)
+    # 2. 写 Delta，按分区列保存
+    df.write.format("delta") \
+        .mode("overwrite") \
+        .partitionBy(*part_cols) \
+        .save(path)
+    # 3. 合并小文件并可选 Z-Order
+    if zorder_cols:
+        spark.sql(f"OPTIMIZE delta.`{path}` ZORDER BY ({', '.join(zorder_cols)})")
+    else:
+        spark.sql(f"OPTIMIZE delta.`{path}`")
+
 
 def write_to_delta_S3(df: DataFrame):
     
