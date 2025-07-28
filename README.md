@@ -27,22 +27,22 @@
 
 Below is the directory layout under `data/lake/`, showing partitions for each Delta table:
 
-data/lake/
-├── PriceFactors/ # Price related features
-│ ├── symbol=AAPL/ # Partition by symbol
-│ │ ├── trade_date=2025-07-01/part-...snappy.parquet
-│ │ └── trade_date=2025-07-02/...
-│ └── symbol=TSLA/
-├── VolumeFactors/ # Volume related features
-│ └── symbol=AAPL/
-│ └── trade_date=2025-07-01/...
-├── ImpactFactors/ # Impact & liquidity features
-│ └── symbol=AAPL/
-│ └── trade_date=2025-07-01/...
-└── Fundamentals/ # Fundamental metrics
-└── symbol=AAPL/
-├── report_date=2025-07-27/part-...parquet
-└── report_date=2025-04-30/...
+data/lake/  
+├── PriceFactors/ # Price related features  
+│ ├── symbol=AAPL/ # Partition by symbol  
+│ │ ├── trade_date=2025-07-01/part-...snappy.parquet  
+│ │ └── trade_date=2025-07-02/...  
+│ └── symbol=TSLA/  
+├── VolumeFactors/ # Volume related features  
+│ └── symbol=AAPL/  
+│ └── trade_date=2025-07-01/...  
+├── ImpactFactors/ # Impact & liquidity features  
+│ └── symbol=AAPL/  
+│ └── trade_date=2025-07-01/...  
+└── Fundamentals/ # Fundamental metrics   
+└── symbol=AAPL/   
+├── report_date=2025-07-27/part-...parquet   
+└── report_date=2025-04-30/...   
 
 - **PriceFactors** partition keys: `symbol`, `trade_date`
 - **VolumeFactors** partition keys: `symbol`, `trade_date`
