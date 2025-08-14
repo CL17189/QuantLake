@@ -1,11 +1,11 @@
 # DeltaQuanta
 
-> **Data Engineering Excellence Starts Here**  
 > A fully containerized Lakehouse pipeline with Delta Lake, Spark optimizations, and Prefect orchestration.
 
+> Kind Tips: API may require Prenium to fully function
 ---
 
-## 🏷️ Key Features
+## Key Features
 
 - **Modern Lakehouse Architecture**  
   - Delta Lake storage with ACID transactions & time‑travel  
@@ -23,7 +23,7 @@
 
 ---
 
-## ⚙️ Partitioned Table Structure
+## Partitioned Table Structure
 
 Below is the directory layout under `data/lake/`, showing partitions for each Delta table:
 
@@ -56,7 +56,7 @@ Partitioning by date fields ensures predicate pushdown and efficient scans.
 ---
 
 
-## ⚙️ Architecture Overview
+## Architecture Overview
 
 ```text
 [ Finnhub API ]
@@ -78,7 +78,7 @@ Partitioning by date fields ensures predicate pushdown and efficient scans.
 
 ---
 
-## 📦 Quick Start
+## Quick Start
 
 ```bash
 # 1. Clone the repo
@@ -100,7 +100,7 @@ docker compose up --build
 
 ---
 
-## 📊 Computed Indicators
+## Computed Indicators
 
 | Category        | Indicator                   |
 | --------------- | --------------------------- |
@@ -112,7 +112,7 @@ docker compose up --build
 
 ---
 
-## 🔧 Tech Stack
+## Tech Stack
 
 ![Tech Stack](pic/tech_stack.jpg)
 
@@ -123,6 +123,6 @@ docker compose up --build
 ---
 
 
-## 📬 License & Contact
+## License & Contact
 
 - Released under the MIT License  
